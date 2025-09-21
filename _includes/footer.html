@@ -1,0 +1,75 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="social-links">
+            {% if site.author.github %}
+            <a href="https://github.com/{{ site.author.github }}" target="_blank" title="GitHub">📱</a>
+            {% endif %}
+            {% if site.author.weibo %}
+            <a href="https://weibo.com/{{ site.author.weibo }}" target="_blank" title="微博">🌐</a>
+            {% endif %}
+            {% if site.author.email %}
+            <a href="mailto:{{ site.author.email }}" title="邮箱">📧</a>
+            {% endif %}
+            {% if site.author.instagram %}
+            <a href="https://instagram.com/{{ site.author.instagram }}" target="_blank" title="Instagram">📷</a>
+            {% endif %}
+        </div>
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. 用 ❤️ 制作.</p>
+        <p>
+            <a href="{{ '/feed.xml' | relative_url }}">RSS订阅</a> | 
+            <a href="{{ '/sitemap.xml' | relative_url }}">网站地图</a>
+        </p>
+    </div>
+</footer>
+
+<style>
+.site-footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 5rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px);
+}
+
+.site-footer p {
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.site-footer a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .social-links {
+        gap: 1.5rem;
+    }
+    
+    .social-links a {
+        font-size: 1.3rem;
+    }
+}
+</style>
