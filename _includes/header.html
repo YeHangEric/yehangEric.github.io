@@ -1,0 +1,127 @@
+<header class="site-header">
+    <nav class="container">
+        <a href="{{ '/' | relative_url }}" class="logo">{{ site.title }}</a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>首页</a></li>
+            <li><a href="{{ '/categories/' | relative_url }}" {% if page.url contains '/categories' %}class="active"{% endif %}>分类</a></li>
+            <li><a href="{{ '/albums/' | relative_url }}" {% if page.url contains '/albums' %}class="active"{% endif %}>相册</a></li>
+            <li><a href="{{ '/about/' | relative_url }}" {% if page.url == '/about/' %}class="active"{% endif %}>关于</a></li>
+            <li><a href="{{ '/contact/' | relative_url }}" {% if page.url == '/contact/' %}class="active"{% endif %}>联系</a></li>
+        </ul>
+        <button class="mobile-menu" id="mobile-menu">☰</button>
+    </nav>
+</header>
+
+<style>
+.site-header {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e9ecef;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-decoration: none;
+    font-family: 'Noto Serif SC', serif;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: #7f8c8d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #3498db;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #3498db;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.mobile-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        border-radius: 0 0 12px 12px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .site-header {
+        background: rgba(26, 26, 26, 0.95);
+    }
+    
+    .logo {
+        color: #e8eaed;
+    }
+    
+    .nav-links {
+        background: #1a1a1a;
+    }
+    
+    .mobile-menu {
+        color: #e8eaed;
+    }
+}
+</style>
