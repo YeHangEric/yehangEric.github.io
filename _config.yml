@@ -1,0 +1,56 @@
+# 网站基本信息
+title: "Dr.J の Blog"
+description: "To be better."
+url: "https://yehangEric.github.io"
+baseurl: ""
+
+# 作者信息
+author:
+  name: "你的名字"
+  bio: "热爱生活和技术的创作者"
+  avatar: "/assets/images/avatar.jpg"
+  email: "your@email.com"
+  github: "你的GitHub用户名"
+  weibo: "你的微博"
+  instagram: "你的Instagram"
+
+# 网站设置
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:title/
+paginate: 5
+paginate_path: "/page:num/"
+
+# 集合设置（用于相册等特殊内容）
+collections:
+  albums:
+    output: true
+    permalink: /:collection/:name/
+
+# 分类设置
+category_list:
+  - tech
+  - life
+  - photography
+  - travel
+  - thinking
+  - reading
+
+# 插件
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+
+# 构建时排除的文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+
+# 时区
+timezone: Asia/Beijing
+
+# 语言
+lang: zh-CN
