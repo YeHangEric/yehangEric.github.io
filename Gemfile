@@ -1,4 +1,5 @@
-source "https://rubygems.org"
+# source "https://rubygems.org"
+source "https://jekyllrb.com/docs/continuous-integration/github-actions/"
 
 # 使用 GitHub Pages 支持的 Jekyll 版本
 gem "github-pages", "~> 228", group: :jekyll_plugins
