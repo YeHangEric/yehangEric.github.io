@@ -1,11 +1,133 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>我的个人主页</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-    <h1>欢迎来到我的个人主页</h1>
-    <p>这里是我的项目展示和个人介绍</p>
-</body>
-</html>
+---
+layout: default
+---
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>{{ site.title }}</h1>
+            <p>{{ site.description }}</p>
+        </div>
+    </div>
+</section>
+
+<section class="category-filter">
+    <div class="container">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">全部</button>
+            {% for category in site.category_list %}
+            <button class="filter-btn" data-category="{{ category }}">
+                {% case category %}
+                {% when 'tech' %}技术
+                {% when 'life' %}生活
+                {% when 'photography' %}摄影
+                {% when 'travel' %}旅行
+                {% when 'thinking' %}思考
+                {% when 'reading' %}阅读
+                {% else %}{{ category | capitalize }}
+                {% endcase %}
+            </button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<main class="container">
+    <div class="content-grid">
+        <section class="blog-posts">
+            <!-- 相册预览 -->
+            {% assign latest_album = site.albums | sort: 'date' | reverse | first %}
+            {% if latest_album %}
+            <div class="album-preview fade-in">
+                <div class="album-grid">
+                    {% for i in (1..6) %}
+                    <div class="album-item">📸</div>
+                    {% endfor %}
+                </div>
+                <div class="album-info">
+                    <div class="album-title">最新相册：{{ latest_album.title }}</div>
+                    <div class="album-count">{{ latest_album.count | default: "24" }}张照片 · {{ latest_album.date | date: "%Y年%m月" }}</div>
+                    <a href="{{ '/albums/' | relative_url }}" class="read-more">查看更多相册 →</a>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- 博客文章 -->
+            {% for post in paginator.posts %}
+            <article class="post fade-in" data-category="{{ post.categories | first }}">
+                {% if post.image %}
+                <div class="post-image">
+                    <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+                </div>
+                {% else %}
+                <div class="post-image">
+                    {% case post.categories.first %}
+                    {% when 'tech' %}💻
+                    {% when 'life' %}📚
+                    {% when 'photography' %}📷
+                    {% when 'travel' %}🗾
+                    {% when 'thinking' %}💭
+                    {% when 'reading' %}📖
+                    {% else %}📝
+                    {% endcase %}
+                </div>
+                {% endif %}
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            {% case post.categories.first %}
+                            {% when 'tech' %}技术
+                            {% when 'life' %}生活
+                            {% when 'photography' %}摄影
+                            {% when 'travel' %}旅行
+                            {% when 'thinking' %}思考
+                            {% when 'reading' %}阅读
+                            {% else %}{{ post.categories.first | capitalize }}
+                            {% endcase %}
+                        </span>
+                        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y年%m月%d日" }}</time>
+                    </div>
+                    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+                    <p class="post-excerpt">
+                        {% if post.excerpt %}
+                            {{ post.excerpt | strip_html | truncatewords: 50 }}
+                        {% else %}
+                            {{ post.content | strip_html | truncatewords: 50 }}
+                        {% endif %}
+                    </p>
+                    <a href="{{ post.url | relative_url }}" class="read-more">继续阅读 →</a>
+                </div>
+            </article>
+            {% endfor %}
+
+            <!-- 分页导航 -->
+            {% if paginator.total_pages > 1 %}
+            <div class="pagination">
+                {% if paginator.previous_page %}
+                <a href="{{ paginator.previous_page_path | relative_url }}" class="page-btn">← 上一页</a>
+                {% endif %}
+                
+                <span class="page-info">第 {{ paginator.page }} 页，共 {{ paginator.total_pages }} 页</span>
+                
+                {% if paginator.next_page %}
+                <a href="{{ paginator.next_page_path | relative_url }}" class="page-btn">下一页 →</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+
+        <aside class="sidebar">
+            <div class="widget fade-in">
+                <h3>关于我</h3>
+                <p class="about-text">{{ site.author.bio }}</p>
+            </div>
+
+            <div class="widget fade-in">
+                <h3>最新文章</h3>
+                <ul class="recent-posts">
+                    {% for post in site.posts limit:4 %}
+                    <li>
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        <div class="date">{{ post.date | date: "%Y年%m月%d日" }}</div>
+                    </li>
+                    {% endfor %}
