@@ -1,0 +1,195 @@
+---
+layout: page
+title: 我的相册
+subtitle: 用镜头记录生活的美好瞬间
+permalink: /albums/
+---
+
+<div class="albums-page">
+    <div class="albums-grid">
+        {% for album in site.albums %}
+        <article class="album-card">
+            <a href="{{ album.url | relative_url }}" class="album-link">
+                <div class="album-cover">
+                    {% if album.cover %}
+                    <img src="{{ album.cover | relative_url }}" alt="{{ album.title }}">
+                    {% else %}
+                    <div class="album-placeholder">📸</div>
+                    {% endif %}
+                    <div class="album-overlay">
+                        <span class="view-album">查看相册</span>
+                    </div>
+                </div>
+                <div class="album-info">
+                    <h3 class="album-title">{{ album.title }}</h3>
+                    <p class="album-meta">
+                        <span class="album-date">{{ album.date | date: "%Y年%m月" }}</span>
+                        <span class="album-count">{{ album.count | default: "0" }} 张照片</span>
+                    </p>
+                    {% if album.description %}
+                    <p class="album-description">{{ album.description | truncate: 80 }}</p>
+                    {% endif %}
+                </div>
+            </a>
+        </article>
+        {% endfor %}
+        
+        {% if site.albums.size == 0 %}
+        <div class="no-albums">
+            <p>🎨 相册功能已准备就绪，即将添加精彩内容...</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.albums-page {
+    padding: 2rem 0;
+}
+
+.albums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.album-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.album-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.album-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.album-cover {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+}
+
+.album-cover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.album-card:hover .album-cover img {
+    transform: scale(1.1);
+}
+
+.album-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.album-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.album-card:hover .album-overlay {
+    opacity: 1;
+}
+
+.view-album {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid white;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.album-card:hover .view-album {
+    background: white;
+    color: #2c3e50;
+}
+
+.album-info {
+    padding: 1.5rem;
+}
+
+.album-title {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-family: 'Noto Serif SC', serif;
+}
+
+.album-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.album-description {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.no-albums {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .albums-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .album-card {
+        background: #2d2d2d;
+        border-color: #3c4043;
+    }
+    
+    .album-title {
+        color: #e8eaed;
+    }
+}
+</style>
