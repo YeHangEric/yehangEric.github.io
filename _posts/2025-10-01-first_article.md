@@ -5,7 +5,7 @@ date: 2024-10-01 14:30:00 +0800
 categories: [tech]
 tags: [博客, Jekyll, GitHub Pages]
 excerpt: "这是我的第一篇博客文章，记录了搭建个人博客的心路历程。"
-image: /assets/images/posts/hello-world.jpg
+image: /assets/images/arknights/图图1.jpg
 ---
 
 ## 🎉 欢迎来到我的博客
